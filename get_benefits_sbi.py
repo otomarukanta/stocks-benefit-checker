@@ -74,7 +74,7 @@ if __name__ == "__main__":
     record_date_df_list = list()
 
     for code in get_codes():
-        sleep(1)
+        sleep(0.2)
         print(code)
         listed_company_df, record_date_df, benefit_df = fetch(code)
         if benefit_df is None:
