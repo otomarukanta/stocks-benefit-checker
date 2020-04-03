@@ -1,6 +1,7 @@
 from time import sleep
 import pandas as pd
 import re
+import csv
 from datetime import datetime
 
 
@@ -63,10 +64,10 @@ def fetch(code):
     return (listed_company_df, record_date_df, benefit_df)
 
 def get_codes():
-    url = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls"
-    df = pd.read_excel(url)
-    includes = ['市場第一部（内国株）', '市場第二部（内国株）', 'マザーズ（内国株）', 'JASDAQ(グロース・内国株）', 'JASDAQ(スタンダード・内国株）']
-    return df[df['市場・商品区分'].isin(includes)]['コード'].values
+    with open('./data/raw/listed_company.csv', 'r') as f:
+        reader = csv.DictReader(f)
+        ret = [row['id'] for row in reader]
+    return ret
 
 if __name__ == "__main__":
     listed_company_df_list = list()
